@@ -8,8 +8,16 @@ recognition.addEventListener('result', onSpeak)
 function onSpeak(e){
     const chute = e.results[0][0].transcript
     console.log(e)
-    exibeChuteNaTela(chute,descricaoNumero,icone)
+    if(chute < numeroSecreto){
+        descricaoNumero = `O numero secreto é maior`
+        icone = 'fa-up-long'
+    }
+    if(chute > numeroSecreto){
+        descricaoNumero = `O numero secreto é menor`
+        icone = 'fa-down-long'
+    }
     vereficaSePossuiValorValido(chute)
+    exibeChuteNaTela(chute,descricaoNumero,icone)
 }
 
 
@@ -20,3 +28,5 @@ function exibeChuteNaTela(chute, descricaoNumero,icone){
     <span class="box">${numero}</span>
     <div>${descricaoNumero} <i class="fa-solid ${icone}"></i></div>`
 }
+
+recognition.addEventListener('end', () => recognition.start())
